@@ -72,3 +72,10 @@ variable "manage_secret_value" {
   default     = true
   description = "EARNIN FORK: when true (upstream default) Terraform writes the Falcon client secret into the FalconAPICredentials secret version. Set false to create only the empty secret container and populate the value manually, keeping the secret out of Terraform state (required by EarnIn's hard-mandatory Sentinel policy)."
 }
+
+# EARNIN FORK
+variable "secret_replica_regions" {
+  type        = list(string)
+  default     = []
+  description = "EARNIN FORK: regions to replicate the FalconAPICredentials secret to. The secret still lives in the primary region; replicas are read-only copies that satisfy DR/multi-region guardrails (e.g. an SCP requiring secret replication). Empty = no replicas (upstream behavior)."
+}
