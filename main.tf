@@ -87,6 +87,7 @@ module "sensor_management" {
   source                = "./modules/sensor-management/"
   falcon_client_id      = var.falcon_client_id
   falcon_client_secret  = var.falcon_client_secret
+  manage_secret_value   = var.manage_sensor_management_secret_value
   external_id           = local.external_id
   intermediate_role_arn = local.intermediate_role_arn
   permissions_boundary  = var.permissions_boundary

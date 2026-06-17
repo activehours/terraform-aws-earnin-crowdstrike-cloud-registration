@@ -140,7 +140,12 @@ resource "aws_secretsmanager_secret" "this" {
   recovery_window_in_days = 0
 }
 
+# EARNIN FORK: gated by var.manage_secret_value so the secret value can be
+# populated manually instead of by Terraform. Setting it false avoids storing
+# the Falcon client secret in Terraform state, which a hard-mandatory TFE
+# Sentinel policy blocks. Defaults to true to preserve upstream behavior.
 resource "aws_secretsmanager_secret_version" "this" {
+  count     = var.manage_secret_value ? 1 : 0
   secret_id = aws_secretsmanager_secret.this.id
   secret_string = jsonencode({
     ClientSecret = var.falcon_client_secret

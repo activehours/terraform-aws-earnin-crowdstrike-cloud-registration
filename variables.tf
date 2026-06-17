@@ -440,3 +440,9 @@ variable "agentless_scanning_integration_role_unique_id" {
   type        = string
   default     = ""
 }
+# EARNIN FORK
+variable "manage_sensor_management_secret_value" {
+  type        = bool
+  default     = true
+  description = "EARNIN FORK: passed to the sensor-management submodule. When true (upstream default) Terraform manages the FalconAPICredentials secret value. Set false to create only the empty secret and populate it manually (keeps the secret out of Terraform state for EarnIn's Sentinel policy)."
+}

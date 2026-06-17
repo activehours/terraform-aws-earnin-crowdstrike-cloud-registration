@@ -65,3 +65,10 @@ variable "cs_address" {
   default     = ""
   description = "CrowdStrike Falcon address for the Lambda to authenticate against (e.g. az.laggar.gcw.crowdstrike.com:443)"
 }
+
+# EARNIN FORK
+variable "manage_secret_value" {
+  type        = bool
+  default     = true
+  description = "EARNIN FORK: when true (upstream default) Terraform writes the Falcon client secret into the FalconAPICredentials secret version. Set false to create only the empty secret container and populate the value manually, keeping the secret out of Terraform state (required by EarnIn's hard-mandatory Sentinel policy)."
+}

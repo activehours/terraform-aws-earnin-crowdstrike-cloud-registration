@@ -312,3 +312,21 @@ module "fcs_account_us_east_2" {
 | <a name="output_integration_role_unique_id"></a> [integration\_role\_unique\_id](#output\_integration\_role\_unique\_id) | The unique ID of the DSPM integration role |
 | <a name="output_scanner_role_unique_id"></a> [scanner\_role\_unique\_id](#output\_scanner\_role\_unique\_id) | The unique ID of the DSPM scanner role |
 <!-- END_TF_DOCS -->
+
+---
+
+## EarnIn fork notes
+
+This is EarnIn's internal fork of `CrowdStrike/terraform-aws-cloud-registration`
+(base: upstream **v0.7.8**), published to the private registry as
+`app.terraform.io/earnin/earnin-crowdstrike-cloud-registration/aws`.
+
+Sole functional change vs upstream: the new variable
+`manage_sensor_management_secret_value` (default `true`). Set it to `false` to
+have the module create the empty `FalconAPICredentials` secret container without
+an `aws_secretsmanager_secret_version`, so the Falcon client secret is never
+written to Terraform state (required by EarnIn's hard-mandatory Sentinel
+policy). When `false`, populate the secret value manually:
+`{"ClientSecret":"<falcon client secret>"}`.
+
+Keep this fork minimal and rebase onto new upstream releases. See SCRTY-2600.
