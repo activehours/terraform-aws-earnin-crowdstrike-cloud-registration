@@ -89,6 +89,7 @@ module "sensor_management" {
   falcon_client_secret   = var.falcon_client_secret
   manage_secret_value    = var.manage_sensor_management_secret_value
   secret_replica_regions = var.sensor_management_secret_replica_regions
+  secret_owner_tag       = var.sensor_management_secret_owner_tag
   external_id            = local.external_id
   intermediate_role_arn  = local.intermediate_role_arn
   permissions_boundary   = var.permissions_boundary

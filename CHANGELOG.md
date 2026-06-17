@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.3 (EarnIn fork)
+
+- Add `sensor_management_secret_owner_tag` (root) / `secret_owner_tag`
+  (sensor-management submodule) string variables, default `""`. When set, an
+  `Owner` tag is applied to the FalconAPICredentials secret only. Required by
+  EarnIn's secrets guardrail SCP, which denies CreateSecret unless the secret
+  carries an `Owner` tag set to an L3 team (e.g. `L3-STEPS-SecurityEng`).
+
+
 ## 0.0.2 (EarnIn fork)
 
 - Add `sensor_management_secret_replica_regions` (root) / `secret_replica_regions`

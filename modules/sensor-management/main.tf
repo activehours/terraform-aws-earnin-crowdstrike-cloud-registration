@@ -139,6 +139,11 @@ resource "aws_secretsmanager_secret" "this" {
   description             = "Falcon API credentials. Used by the 1-Click sensor management orchestrator"
   recovery_window_in_days = 0
 
+  # EARNIN FORK: Owner tag (scoped to this secret) for the DR/secrets guardrail
+  # SCP, which denies CreateSecret unless an Owner tag (L3 team) is present.
+  # Empty = no tag (upstream behavior).
+  tags = var.secret_owner_tag != "" ? { Owner = var.secret_owner_tag } : {}
+
   # EARNIN FORK: optional cross-region read replicas. The secret still lives in
   # the primary region; replicas satisfy DR/multi-region guardrails (e.g. an SCP
   # that denies CreateSecret for single-region secrets). Defaults to none to

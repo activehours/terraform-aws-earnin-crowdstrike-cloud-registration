@@ -79,3 +79,10 @@ variable "secret_replica_regions" {
   default     = []
   description = "EARNIN FORK: regions to replicate the FalconAPICredentials secret to. The secret still lives in the primary region; replicas are read-only copies that satisfy DR/multi-region guardrails (e.g. an SCP requiring secret replication). Empty = no replicas (upstream behavior)."
 }
+
+# EARNIN FORK
+variable "secret_owner_tag" {
+  type        = string
+  default     = ""
+  description = "EARNIN FORK: value for an `Owner` tag applied to the FalconAPICredentials secret only (not other resources). Required by EarnIn's secrets guardrail SCP, which denies CreateSecret without an Owner tag set to an L3 team. Empty = no tag (upstream behavior)."
+}
