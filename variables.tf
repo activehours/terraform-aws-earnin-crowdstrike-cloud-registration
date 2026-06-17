@@ -453,3 +453,10 @@ variable "sensor_management_secret_replica_regions" {
   default     = []
   description = "EARNIN FORK: passed to the sensor-management submodule. Regions to replicate the FalconAPICredentials secret to (read-only copies for DR/multi-region guardrails). Empty = no replicas (upstream behavior)."
 }
+
+# EARNIN FORK
+variable "sensor_management_secret_owner_tag" {
+  type        = string
+  default     = ""
+  description = "EARNIN FORK: passed to the sensor-management submodule. Value for the `Owner` tag on the FalconAPICredentials secret (L3 team) to satisfy EarnIn's secrets guardrail SCP. Empty = no tag (upstream behavior)."
+}
