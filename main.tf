@@ -83,20 +83,21 @@ module "asset_inventory" {
 }
 
 module "sensor_management" {
-  count                 = (local.is_primary_region && var.enable_sensor_management) ? 1 : 0
-  source                = "./modules/sensor-management/"
-  falcon_client_id      = var.falcon_client_id
-  falcon_client_secret  = var.falcon_client_secret
-  manage_secret_value   = var.manage_sensor_management_secret_value
-  external_id           = local.external_id
-  intermediate_role_arn = local.intermediate_role_arn
-  permissions_boundary  = var.permissions_boundary
-  account_type          = var.account_type
-  is_gov                = var.is_gov
-  cs_address            = var.cs_address
-  resource_prefix       = var.resource_prefix
-  resource_suffix       = var.resource_suffix
-  tags                  = var.tags
+  count                  = (local.is_primary_region && var.enable_sensor_management) ? 1 : 0
+  source                 = "./modules/sensor-management/"
+  falcon_client_id       = var.falcon_client_id
+  falcon_client_secret   = var.falcon_client_secret
+  manage_secret_value    = var.manage_sensor_management_secret_value
+  secret_replica_regions = var.sensor_management_secret_replica_regions
+  external_id            = local.external_id
+  intermediate_role_arn  = local.intermediate_role_arn
+  permissions_boundary   = var.permissions_boundary
+  account_type           = var.account_type
+  is_gov                 = var.is_gov
+  cs_address             = var.cs_address
+  resource_prefix        = var.resource_prefix
+  resource_suffix        = var.resource_suffix
+  tags                   = var.tags
 
   depends_on = [
     data.crowdstrike_cloud_aws_account.target

@@ -138,6 +138,17 @@ resource "aws_secretsmanager_secret" "this" {
   name                    = "/CrowdStrike/CSPM/SensorManagement/FalconAPICredentials"
   description             = "Falcon API credentials. Used by the 1-Click sensor management orchestrator"
   recovery_window_in_days = 0
+
+  # EARNIN FORK: optional cross-region read replicas. The secret still lives in
+  # the primary region; replicas satisfy DR/multi-region guardrails (e.g. an SCP
+  # that denies CreateSecret for single-region secrets). Defaults to none to
+  # preserve upstream behavior.
+  dynamic "replica" {
+    for_each = toset(var.secret_replica_regions)
+    content {
+      region = replica.value
+    }
+  }
 }
 
 # EARNIN FORK: gated by var.manage_secret_value so the secret value can be

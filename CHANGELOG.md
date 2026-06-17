@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.2 (EarnIn fork)
+
+- Add `sensor_management_secret_replica_regions` (root) / `secret_replica_regions`
+  (sensor-management submodule) list variables, default `[]` (upstream behavior).
+  When set, the FalconAPICredentials secret is created with cross-region read
+  replicas. Needed to satisfy EarnIn's DR guardrail (an SCP denies CreateSecret
+  for single-region secrets); set to `["us-east-2"]` in the security config.
+
+
 ## 0.0.1 (EarnIn fork)
 
 Forked from CrowdStrike/terraform-aws-cloud-registration v0.7.8 (SCRTY-2600).
