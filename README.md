@@ -243,8 +243,8 @@ module "fcs_account_us_east_2" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0.0 |
-| <a name="provider_crowdstrike"></a> [crowdstrike](#provider\_crowdstrike) | >= 0.0.58 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.70.0 |
+| <a name="provider_crowdstrike"></a> [crowdstrike](#provider\_crowdstrike) | 1.2.0 |
 ## Resources
 
 | Name | Type |
@@ -303,12 +303,15 @@ module "fcs_account_us_east_2" {
 | <a name="input_log_ingestion_s3_bucket_name"></a> [log\_ingestion\_s3\_bucket\_name](#input\_log\_ingestion\_s3\_bucket\_name) | S3 bucket name containing CloudTrail logs (required when log\_ingestion\_method=s3) | `string` | `""` | no |
 | <a name="input_log_ingestion_s3_bucket_prefix"></a> [log\_ingestion\_s3\_bucket\_prefix](#input\_log\_ingestion\_s3\_bucket\_prefix) | Optional S3 bucket prefix/path for CloudTrail logs (when log\_ingestion\_method=s3) | `string` | `""` | no |
 | <a name="input_log_ingestion_sns_topic_arn"></a> [log\_ingestion\_sns\_topic\_arn](#input\_log\_ingestion\_sns\_topic\_arn) | SNS topic ARN that publishes S3 object creation events (required when log\_ingestion\_method=s3) | `string` | `""` | no |
+| <a name="input_manage_sensor_management_secret_value"></a> [manage\_sensor\_management\_secret\_value](#input\_manage\_sensor\_management\_secret\_value) | EARNIN FORK: passed to the sensor-management submodule. When true (upstream default) Terraform manages the FalconAPICredentials secret value. Set false to create only the empty secret and populate it manually (keeps the secret out of Terraform state for EarnIn's Sentinel policy). | `bool` | `true` | no |
 | <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | The AWS Organization ID. Leave blank if when onboarding single account | `string` | `""` | no |
 | <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | The name of the policy used to set the permissions boundary for IAM roles | `string` | `""` | no |
 | <a name="input_primary_region"></a> [primary\_region](#input\_primary\_region) | Region for deploying global AWS resources (IAM roles, policies, etc.) that are account-wide and only need to be created once. Distinct from agentless\_scanning\_regions which controls region-specific resource deployment. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The region this module instance deploys into. Set this explicitly when the module is called with depends\_on, or in any topology where Terraform defers data source reads to apply time - otherwise the count expressions gated on region cannot be resolved at plan time. When null, the region is read from data.aws\_region.current. | `string` | `null` | no |
 | <a name="input_resource_prefix"></a> [resource\_prefix](#input\_resource\_prefix) | The prefix to be added to all resource names | `string` | `"CrowdStrike"` | no |
 | <a name="input_resource_suffix"></a> [resource\_suffix](#input\_resource\_suffix) | The suffix to be added to all resource names | `string` | `""` | no |
+| <a name="input_sensor_management_secret_owner_tag"></a> [sensor\_management\_secret\_owner\_tag](#input\_sensor\_management\_secret\_owner\_tag) | EARNIN FORK: passed to the sensor-management submodule. Value for the `Owner` tag on the FalconAPICredentials secret (L3 team) to satisfy EarnIn's secrets guardrail SCP. Empty = no tag (upstream behavior). | `string` | `""` | no |
+| <a name="input_sensor_management_secret_replica_regions"></a> [sensor\_management\_secret\_replica\_regions](#input\_sensor\_management\_secret\_replica\_regions) | EARNIN FORK: passed to the sensor-management submodule. Regions to replicate the FalconAPICredentials secret to (read-only copies for DR/multi-region guardrails). Empty = no replicas (upstream behavior). | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources that support tagging | `map(string)` | `{}` | no |
 | <a name="input_use_existing_cloudtrail"></a> [use\_existing\_cloudtrail](#input\_use\_existing\_cloudtrail) | DEPRECATED: This variable is no longer used. CrowdStrike no longer provisions CloudTrail resources. All deployments now behave as if use\_existing\_cloudtrail=true. | `bool` | `true` | no |
 | <a name="input_use_existing_iam_reader_role"></a> [use\_existing\_iam\_reader\_role](#input\_use\_existing\_iam\_reader\_role) | Set to true if you want to use an existing IAM role for asset inventory | `bool` | `false` | no |
