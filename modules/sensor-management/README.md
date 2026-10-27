@@ -72,13 +72,18 @@ module "sensor_management" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_type"></a> [account\_type](#input\_account\_type) | Account type can be either 'commercial' or 'gov' | `string` | `"commercial"` | no |
+| <a name="input_cs_address"></a> [cs\_address](#input\_cs\_address) | CrowdStrike Falcon address for the Lambda to authenticate against (e.g. az.laggar.gcw.crowdstrike.com:443) | `string` | `""` | no |
 | <a name="input_external_id"></a> [external\_id](#input\_external\_id) | Unique identifier provided by CrowdStrike for secure cross-account access | `string` | n/a | yes |
 | <a name="input_falcon_client_id"></a> [falcon\_client\_id](#input\_falcon\_client\_id) | Falcon API Client ID | `string` | n/a | yes |
 | <a name="input_falcon_client_secret"></a> [falcon\_client\_secret](#input\_falcon\_client\_secret) | Falcon API Client Secret | `string` | n/a | yes |
 | <a name="input_intermediate_role_arn"></a> [intermediate\_role\_arn](#input\_intermediate\_role\_arn) | ARN of CrowdStrike's intermediate role | `string` | n/a | yes |
+| <a name="input_is_gov"></a> [is\_gov](#input\_is\_gov) | Set to true if deploying in a gov Falcon environment (eagle, merlin) | `bool` | `false` | no |
+| <a name="input_manage_secret_value"></a> [manage\_secret\_value](#input\_manage\_secret\_value) | EARNIN FORK: when true (upstream default) Terraform writes the Falcon client secret into the FalconAPICredentials secret version. Set false to create only the empty secret container and populate the value manually, keeping the secret out of Terraform state (required by EarnIn's hard-mandatory Sentinel policy). | `bool` | `true` | no |
 | <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | The name of the policy used to set the permissions boundary for IAM roles | `string` | `""` | no |
 | <a name="input_resource_prefix"></a> [resource\_prefix](#input\_resource\_prefix) | The prefix to be added to all resource names | `string` | `""` | no |
 | <a name="input_resource_suffix"></a> [resource\_suffix](#input\_resource\_suffix) | The suffix to be added to all resource names | `string` | `""` | no |
+| <a name="input_secret_owner_tag"></a> [secret\_owner\_tag](#input\_secret\_owner\_tag) | EARNIN FORK: value for an `Owner` tag applied to the FalconAPICredentials secret only (not other resources). Required by EarnIn's secrets guardrail SCP, which denies CreateSecret without an Owner tag set to an L3 team. Empty = no tag (upstream behavior). | `string` | `""` | no |
+| <a name="input_secret_replica_regions"></a> [secret\_replica\_regions](#input\_secret\_replica\_regions) | EARNIN FORK: regions to replicate the FalconAPICredentials secret to. The secret still lives in the primary region; replicas are read-only copies that satisfy DR/multi-region guardrails (e.g. an SCP requiring secret replication). Empty = no replicas (upstream behavior). | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources that support tagging | `map(string)` | `{}` | no |
 ## Outputs
 
